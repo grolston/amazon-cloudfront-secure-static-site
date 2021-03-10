@@ -12,6 +12,11 @@ Resources:
 
   LambdaPolicy:
     Type: AWS::IAM::Policy
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: F40
+            reason: "permissions needing refactored in future to reduce wildcard for logs action"
     DependsOn:
       - LambdaRole
     Properties:
@@ -96,7 +101,7 @@ Resources:
       Tags:
         - Key: Solution
           Value: ACFS3
-  
+
   CopyLayerVersion:
     Type: "AWS::Serverless::LayerVersion"
     Properties:
