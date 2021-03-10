@@ -1,0 +1,26 @@
+name: 'SAST'
+
+on: [push]
+
+jobs:
+
+  security-scan-nag:
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+    - uses: actions/checkout@v2
+    - uses: grolston/cfn-security@master
+      with:
+        cloudformation_directory: "./templates/"
+        scanner: "cfn-nag"
+
+  ## checkov security scan
+  security-scan-checkov:
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+    - uses: actions/checkout@v2
+    - uses: grolston/cfn-security@master
+      with:
+        cloudformation_directory: "./templates/"
+        scanner: "checkov"
